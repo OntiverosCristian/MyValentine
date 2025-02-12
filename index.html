@@ -63,15 +63,10 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: white;
-            font-size: 3rem;
+            font-size: 2.5rem; /* Tamaño de fuente reducido */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             animation: fadeIn 2s ease-in-out;
         }
-
-        .texto-centrado h1 {
-            font-size: 4rem; /* Tamaño de fuente reducido */
-        }
-
 
         .botones {
             margin-top: 20px;
@@ -79,7 +74,7 @@
 
         .botones button {
             padding: 10px 20px;
-            font-size: 1.3rem;
+            font-size: 1.1rem; /* Tamaño de fuente reducido */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -109,7 +104,7 @@
         /* Estilos responsivos para móviles */
         @media (max-width: 768px) {
             .texto-centrado h1 {
-                font-size: 2.5rem; /* Tamaño de fuente más pequeño para móviles */
+                font-size: 1.8rem; /* Tamaño de fuente más pequeño para móviles */
             }
 
             .botones button {
@@ -120,11 +115,6 @@
 
             .botones {
                 margin-top: 10px; /* Menor margen superior para móviles */
-            }
-
-            /* Ajustar el área de movimiento del botón "No" */
-            #btnNo {
-                font-size: 1rem; /* Tamaño de fuente más pequeño para móviles */
             }
         }
 
@@ -169,10 +159,11 @@
     </div>
 
     <script>
-        // Cambiar el texto y ocultar el botón "Sí"
+        // Cambiar el texto y ocultar ambos botones
         document.getElementById('btnSi').addEventListener('click', function() {
             document.querySelector('h1').textContent = '¡Felicidades! haz ganado una cena conmigo en MAHO SLP el 14 de febrero a las 9:00 pm, nos vemos ese día miamor Te amo ❤️';
-            this.style.display = 'none';
+            document.getElementById('btnSi').style.display = 'none'; // Oculta el botón "Sí"
+            document.getElementById('btnNo').style.display = 'none'; // Oculta el botón "No"
         });
 
         // Mover el botón "No" y ocultarlo después de 4 clics
@@ -183,9 +174,9 @@
             const carousel = document.querySelector('.carousel');
             const carouselRect = carousel.getBoundingClientRect();
 
-            // Limitar el área de movimiento al 60% del contenedor en móviles
-            const areaWidth = carouselRect.width * (window.innerWidth <= 768 ? 0.6 : 0.8);
-            const areaHeight = carouselRect.height * (window.innerWidth <= 768 ? 0.6 : 0.8);
+            // Limitar el área de movimiento al 50% del contenedor (más pequeño)
+            const areaWidth = carouselRect.width * 0.5; // Área reducida al 50%
+            const areaHeight = carouselRect.height * 0.5; // Área reducida al 50%
 
             // Calcular los límites de movimiento
             const maxX = areaWidth - btnNo.offsetWidth;
