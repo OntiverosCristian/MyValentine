@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi Valentín?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            width: 500%; /* 100% por cada imagen (5 imágenes) */
+            height: 100%;
+            transition: transform 1.5s ease-in-out;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0%); } /* Primera imagen */
+            20% { transform: translateX(-100%); } /* Segunda imagen */
+            40% { transform: translateX(-200%); } /* Tercera imagen */
+            60% { transform: translateX(-300%); } /* Cuarta imagen */
+            80% { transform: translateX(-400%); } /* Quinta imagen */
+            100% { transform: translateX(-500%); } /* Vuelve a la primera imagen */
+        }
+
+        .carousel-inner {
+            animation: slide 20s infinite linear; /* Ajusta la duración según el número de imágenes */
+        }
+
+        .carousel-item {
+            flex: 1 0 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        .texto-centrado {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .botones {
+            margin-top: 20px;
+        }
+
+        .botones button {
+            padding: 10px 20px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #ffffff;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .botones button:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .botones button:active {
+            transform: scale(1.1); /* Hace el botón un 10% más grande */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/foto3.jpeg" alt="Imagen 1">
+            </div>
+            <div class="carousel-item">
+                <img src="images/foto5.jpeg" alt="Imagen 2">
+            </div>
+            <div class="carousel-item">
+                <img src="images/foto1.jpeg" alt="Imagen 3">
+            </div>
+            <div class="carousel-item">
+                <img src="images/foto2.jpeg" alt="Imagen 4">
+            </div>
+            <div class="carousel-item">
+                <img src="images/foto4.jpeg" alt="Imagen 5">
+            </div>
+        </div>
+        <div class="texto-centrado">
+            <h1>¿Quieres ser mi Valentín?</h1>
+            <div class="botones">
+                <button id="btnSi" style="background-color: rgb(146, 37, 37);">Sí</button>
+                <button id="btnNo" style="background-color: rgb(146, 37, 37);">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cambiar el texto y ocultar el botón "Sí"
+        document.getElementById('btnSi').addEventListener('click', function() {
+            document.querySelector('h1').textContent = '¡Te amo! ❤️';
+            this.style.display = 'none';
+        });
+
+        // Mover el botón "No" y ocultarlo después de 4 clics
+        let contadorClics = 0;
+
+        document.getElementById('btnNo').addEventListener('click', function() {
+            const btnNo = this;
+            const carousel = document.querySelector('.carousel');
+            const carouselRect = carousel.getBoundingClientRect();
+
+            // Limitar el área de movimiento al 80% del contenedor
+            const areaWidth = carouselRect.width * 0.8;
+            const areaHeight = carouselRect.height * 0.8;
+
+            // Calcular los límites de movimiento
+            const maxX = areaWidth - btnNo.offsetWidth;
+            const maxY = areaHeight - btnNo.offsetHeight;
+
+            // Calcular una posición aleatoria dentro del área limitada
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            // Ajustar la posición para que esté centrada en el área limitada
+            const offsetX = (carouselRect.width - areaWidth) / 2;
+            const offsetY = (carouselRect.height - areaHeight) / 2;
+
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = `${randomX + offsetX}px`;
+            btnNo.style.top = `${randomY + offsetY}px`;
+
+            // Incrementar el contador de clics
+            contadorClics++;
+
+            // Ocultar el botón después de 4 clics
+            if (contadorClics >= 4) {
+                btnNo.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
