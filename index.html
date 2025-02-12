@@ -68,6 +68,11 @@
             animation: fadeIn 2s ease-in-out;
         }
 
+        .texto-centrado h1 {
+            font-size: 4rem; /* Tamaño de fuente reducido */
+        }
+
+
         .botones {
             margin-top: 20px;
         }
@@ -79,13 +84,13 @@
             border-radius: 5px;
             cursor: pointer;
             margin: 0 10px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(146, 37, 37, 0.8);
             color: #ffffff;
             transition: transform 0.2s ease, background-color 0.3s ease;
         }
 
         .botones button:hover {
-            background-color: rgba(255, 255, 255, 1);
+            background-color: rgba(146, 37, 37, 1);
         }
 
         .botones button:active {
@@ -98,6 +103,39 @@
             }
             to {
                 opacity: 1;
+            }
+        }
+
+        /* Estilos responsivos para móviles */
+        @media (max-width: 768px) {
+            .texto-centrado h1 {
+                font-size: 2.5rem; /* Tamaño de fuente más pequeño para móviles */
+            }
+
+            .botones button {
+                font-size: 1rem; /* Tamaño de fuente más pequeño para móviles */
+                padding: 8px 16px; /* Padding más pequeño para móviles */
+                margin: 0 5px; /* Menor margen entre botones */
+            }
+
+            .botones {
+                margin-top: 10px; /* Menor margen superior para móviles */
+            }
+
+            /* Ajustar el área de movimiento del botón "No" */
+            #btnNo {
+                font-size: 1rem; /* Tamaño de fuente más pequeño para móviles */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .texto-centrado h1 {
+                font-size: 1.5rem; /* Tamaño de fuente aún más pequeño para pantallas muy pequeñas */
+            }
+
+            .botones button {
+                font-size: 0.9rem; /* Tamaño de fuente más pequeño para pantallas muy pequeñas */
+                padding: 6px 12px; /* Padding más pequeño para pantallas muy pequeñas */
             }
         }
     </style>
@@ -124,8 +162,8 @@
         <div class="texto-centrado">
             <h1>¿Quieres ser mi Valentín?</h1>
             <div class="botones">
-                <button id="btnSi" style="background-color: rgb(146, 37, 37);">Sí</button>
-                <button id="btnNo" style="background-color: rgb(146, 37, 37);">No</button>
+                <button id="btnSi">Sí</button>
+                <button id="btnNo">No</button>
             </div>
         </div>
     </div>
@@ -145,9 +183,9 @@
             const carousel = document.querySelector('.carousel');
             const carouselRect = carousel.getBoundingClientRect();
 
-            // Limitar el área de movimiento al 80% del contenedor
-            const areaWidth = carouselRect.width * 0.8;
-            const areaHeight = carouselRect.height * 0.8;
+            // Limitar el área de movimiento al 60% del contenedor en móviles
+            const areaWidth = carouselRect.width * (window.innerWidth <= 768 ? 0.6 : 0.8);
+            const areaHeight = carouselRect.height * (window.innerWidth <= 768 ? 0.6 : 0.8);
 
             // Calcular los límites de movimiento
             const maxX = areaWidth - btnNo.offsetWidth;
